@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class groundCheck : MonoBehaviour
 {
-    private bool isGrounded = true;
+    private bool isGrounded = false;
 
     // Start is called before the first frame update
     void Start()

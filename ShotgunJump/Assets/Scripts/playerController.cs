@@ -24,7 +24,8 @@ public class playerController : MonoBehaviour
 
     void FixedUpdate()
     {   
-        if (feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
+        Debug.Log(feetHitbox.GetComponent<groundCheck>().GetGroundCheck());
+        if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
         {
             //gravity
             float newY = gameObject.transform.position.y - gravity;
