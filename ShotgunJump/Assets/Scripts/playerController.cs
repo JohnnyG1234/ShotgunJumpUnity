@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -11,10 +12,19 @@ public class playerController : MonoBehaviour
     private float gravity;
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private float jumpTime;
+    [SerializeField]
+    private float jumpNum;
+    [SerializeField]
+    private float landLock;
 
 
     private float dir;
-    
+    private bool shouldJump = false;
+    private float jumpStarted;
+    private float airTime = 0f;
+
 
 
     // Start is called before the first frame update
@@ -27,6 +37,13 @@ public class playerController : MonoBehaviour
     void Update()
     {
         dir = Input.GetAxis("Horizontal");
+
+        if (Input.GetButtonDown("Jump") & feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
+        {
+            shouldJump = true;
+            jumpStarted = jumpTime;
+            
+        }
     }
 
     void FixedUpdate()
@@ -37,18 +54,38 @@ public class playerController : MonoBehaviour
         if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
         {
             //gravity
-            newY = gameObject.transform.position.y - gravity;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(UnityEngine.Vector2.down),landLock);
+            if (hit)
+            {
+                newY = gameObject.transform.position.y - landLock;
+            }
+            else
+            {
+                newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,2);
+            }
+            
+        }
+        else
+        {
+            airTime = 0;
         }
 
         newX += speed * dir;
-
         gameObject.transform.position = new UnityEngine.Vector2(newX, newY);
 
-        
+        if (shouldJump | jumpStarted > 0)
+        {
+            Jump();
+            shouldJump = false;
+            jumpStarted -= Time.deltaTime;
+            airTime += Time.deltaTime;
+        }
     }
 
     private void Jump()
     {
-        
+        float newY = gameObject.transform.position.y + jumpNum;
+        gameObject.transform.position = new UnityEngine.Vector2(gameObject.transform.position.x, newY);
     }
+
 }
