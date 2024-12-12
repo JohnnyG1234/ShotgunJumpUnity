@@ -9,6 +9,13 @@ public class playerController : MonoBehaviour
     private GameObject feetHitbox;
     [SerializeField]
     private float gravity;
+    [SerializeField]
+    private float speed;
+
+
+    private float dir;
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,17 +26,24 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        dir = Input.GetAxis("Horizontal");
     }
 
     void FixedUpdate()
     {   
-        Debug.Log(feetHitbox.GetComponent<groundCheck>().GetGroundCheck());
+        float newY = gameObject.transform.position.y;
+        float newX = gameObject.transform.position.x;
+
         if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
         {
             //gravity
-            float newY = gameObject.transform.position.y - gravity;
-            gameObject.transform.position = new UnityEngine.Vector2(gameObject.transform.position.x, newY);
+            newY = gameObject.transform.position.y - gravity;
         }
+
+        newX += speed * dir;
+
+        gameObject.transform.position = new UnityEngine.Vector2(newX, newY);
+
+        
     }
 }

@@ -222,6 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feetHitbox: {fileID: 1615926058}
   gravity: 0.1
+  speed: 0.2
 --- !u!1 &308655303
 GameObject:
   m_ObjectHideFlags: 0
