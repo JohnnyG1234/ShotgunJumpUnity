@@ -23,6 +23,7 @@ public class playerController : MonoBehaviour
     float behopTimer;
     [SerializeField]
     float behopSpeedInc;
+    
 
 
     private float dir;
@@ -31,6 +32,7 @@ public class playerController : MonoBehaviour
     private float airTime = 0f;
     private float groundTime = 0f;
     private float currentSpeed;
+    SpriteRenderer sp;
 
 
 
@@ -38,11 +40,16 @@ public class playerController : MonoBehaviour
     void Start()
     {
         currentSpeed = speed;
+        sp = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //crosshair stuff
+        UnityEngine.Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        sp.flipX = mousePos.x < transform.position.x;
+
         dir = Input.GetAxis("Horizontal");
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
 
@@ -64,8 +71,6 @@ public class playerController : MonoBehaviour
     void FixedUpdate()
     {   
         float newY = gameObject.transform.position.y;
-        float newX = gameObject.transform.position.x;
-
         if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
         {
             //gravity
@@ -81,8 +86,9 @@ public class playerController : MonoBehaviour
         {
             airTime = 0;
         }
+        float newX = moveX();
 
-        newX += currentSpeed * dir;
+
         gameObject.transform.position = new UnityEngine.Vector2(newX, newY);
 
         if (shouldJump | jumpStarted > 0)
@@ -120,9 +126,28 @@ public class playerController : MonoBehaviour
         }
     }
 
-
-    void OnCollisionEnter2D()
+    private float moveX()
     {
-        Debug.Log("shit");
+        float newX = gameObject.transform.position.x;
+
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, UnityEngine.Vector2.right);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, UnityEngine.Vector2.left);
+
+        if (hitRight.distance < 5 & dir > 0 & hitRight.collider.gameObject.tag == "floor")
+        {
+            Debug.Log("right");
+            return newX;
+        }
+        if (hitLeft.distance < 1 & dir < 0 & hitLeft.collider.gameObject.tag == "floor")
+        {
+            Debug.Log("left");
+            return newX;
+        }
+
+        newX += currentSpeed * dir;
+
+
+
+        return newX;
     }
 }
