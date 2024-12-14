@@ -225,6 +225,9 @@ MonoBehaviour:
   speed: 0.2
   jumpTime: 0.8
   jumpNum: 0.5
+  maxSpeed: 0.8
+  behopTimer: 0.2
+  behopSpeedInc: 0.03
 --- !u!1 &308655303
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,8 +308,8 @@ Transform:
   m_GameObject: {fileID: 308655303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0066, y: 0, z: 0}
-  m_LocalScale: {x: 34.292587, y: 4.3683, z: 1}
+  m_LocalPosition: {x: 2.1036, y: 0, z: 0}
+  m_LocalScale: {x: 55.590805, y: 4.3683, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -489,7 +492,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 6.955715
+  orthographic size: 10.685446
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -514,7 +517,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.26, z: -10}
+  m_LocalPosition: {x: 0, y: 11.48, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
