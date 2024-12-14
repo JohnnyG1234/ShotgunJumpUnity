@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -58,7 +59,6 @@ public class playerController : MonoBehaviour
             groundTime += Time.deltaTime;
         }
 
-        Debug.Log(currentSpeed);
     }
 
     void FixedUpdate()
@@ -118,5 +118,11 @@ public class playerController : MonoBehaviour
                 currentSpeed = maxSpeed;
             }
         }
+    }
+
+
+    void OnCollisionEnter2D()
+    {
+        Debug.Log("shit");
     }
 }

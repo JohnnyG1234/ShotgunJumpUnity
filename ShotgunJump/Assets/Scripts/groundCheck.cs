@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class groundCheck : MonoBehaviour
 {
-    private bool isGrounded = false;
+    private bool isGrounded = true;
     private float groundY;
 
 
@@ -24,8 +24,11 @@ public class groundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        isGrounded = true;
-        groundY = collider.gameObject.transform.position.y;
+        if (collider.gameObject.tag == "floor")
+        {
+            isGrounded = true;
+            groundY = collider.gameObject.transform.position.y;
+        }
     }
 
     void OnTriggerExit2D()
