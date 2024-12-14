@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
         dir = Input.GetAxis("Horizontal");
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
 
-        if (Input.GetButtonDown("Jump") & grounded)
+        if (Input.GetButtonDown("Jump") & grounded | Input.GetAxis("Mouse ScrollWheel") < 0f & grounded)
         {
             shouldJump = true;
             jumpStarted = jumpTime;
