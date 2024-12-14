@@ -16,8 +16,6 @@ public class playerController : MonoBehaviour
     private float jumpTime;
     [SerializeField]
     private float jumpNum;
-    [SerializeField]
-    private float landLock;
 
 
     private float dir;
@@ -54,16 +52,13 @@ public class playerController : MonoBehaviour
         if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
         {
             //gravity
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(UnityEngine.Vector2.down),landLock);
-            if (hit)
+            newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,2);
+            // but don't go below the ground
+            float groundY = feetHitbox.GetComponent<groundCheck>().GetGroundY() + 3;
+            if (groundY > newY)
             {
-                newY = gameObject.transform.position.y - landLock;
+                newY = groundY;
             }
-            else
-            {
-                newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,2);
-            }
-            
         }
         else
         {

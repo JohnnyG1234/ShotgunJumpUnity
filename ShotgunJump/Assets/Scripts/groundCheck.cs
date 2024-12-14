@@ -9,6 +9,7 @@ public class groundCheck : MonoBehaviour
     private bool isGrounded = false;
     private float groundY;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +22,10 @@ public class groundCheck : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D collider)
     {
         isGrounded = true;
-        
+        groundY = collider.gameObject.transform.position.y;
     }
 
     void OnTriggerExit2D()
@@ -35,5 +36,10 @@ public class groundCheck : MonoBehaviour
     public bool GetGroundCheck()
     {
         return isGrounded;
+    }
+
+    public float GetGroundY()
+    {
+        return groundY;
     }
 }
