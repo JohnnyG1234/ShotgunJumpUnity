@@ -41,7 +41,7 @@ public class playerController : MonoBehaviour
     void Start()
     {
         currentSpeed = speed;
-        sp = GetComponent<SpriteRenderer>();
+        //sp = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -49,7 +49,7 @@ public class playerController : MonoBehaviour
     {
         //crosshair stuff
         UnityEngine.Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        sp.flipX = mousePos.x < transform.position.x;
+        //sp.flipX = mousePos.x < transform.position.x;
 
         dir = Input.GetAxis("Horizontal");
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
