@@ -32,7 +32,6 @@ public class playerController : MonoBehaviour
     private float airTime = 0f;
     private float groundTime = 0f;
     private float currentSpeed;
-    private SpriteRenderer sp;
     private float groundDistance;
 
 
@@ -49,7 +48,6 @@ public class playerController : MonoBehaviour
     {
         //crosshair stuff
         UnityEngine.Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //sp.flipX = mousePos.x < transform.position.x;
 
         dir = Input.GetAxis("Horizontal");
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
