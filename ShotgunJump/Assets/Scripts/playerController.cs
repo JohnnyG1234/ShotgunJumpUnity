@@ -32,7 +32,9 @@ public class playerController : MonoBehaviour
     private float airTime = 0f;
     private float groundTime = 0f;
     private float currentSpeed;
-    SpriteRenderer sp;
+    private SpriteRenderer sp;
+    private float groundDistance;
+    private float groundOffset = -.5f;
 
 
 
@@ -65,6 +67,10 @@ public class playerController : MonoBehaviour
         {
             groundTime += Time.deltaTime;
         }
+        
+        //raycasting to get ground distance
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, UnityEngine.Vector2.down);
+        groundDistance = groundHit.distance + groundOffset;
 
     }
 
@@ -75,8 +81,10 @@ public class playerController : MonoBehaviour
         {
             //gravity
             newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,2);
+            
             // but don't go below the ground
-            float groundY = feetHitbox.GetComponent<groundCheck>().GetGroundY() + 3;
+            float groundY = groundDistance + .5f; //feetHitbox.GetComponent<groundCheck>().GetGroundY() + 
+            Debug.Log(groundY);
             if (groundY > newY)
             {
                 newY = groundY;
@@ -130,18 +138,27 @@ public class playerController : MonoBehaviour
     {
         float newX = gameObject.transform.position.x;
 
-        RaycastHit2D hitRight = Physics2D.Raycast(transform.position, UnityEngine.Vector2.right);
-        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, UnityEngine.Vector2.left);
+        UnityEngine.Vector3 rightOffsett = new UnityEngine.Vector3(.5f,0,0);
+        UnityEngine.Vector3 leftOffsett = new UnityEngine.Vector3(-.5f,0,0);
 
-        if (hitRight.distance < 5 & dir > 0 & hitRight.collider.gameObject.tag == "floor")
-        {
-            Debug.Log("right");
-            return newX;
+
+        RaycastHit2D hitRight = Physics2D.Raycast(transform.position + rightOffsett, UnityEngine.Vector2.right);
+        RaycastHit2D hitLeft = Physics2D.Raycast(transform.position + leftOffsett, UnityEngine.Vector2.left);
+
+        if (hitRight)
+        {   
+            if (hitRight.distance < .05 & dir > 0 & hitRight.collider.gameObject.tag == "floor")
+            {
+                return newX;
+            }
         }
-        if (hitLeft.distance < 1 & dir < 0 & hitLeft.collider.gameObject.tag == "floor")
+        
+        if (hitLeft)
         {
-            Debug.Log("left");
-            return newX;
+            if (hitLeft.distance < .05 & dir < 0 & hitLeft.collider.gameObject.tag == "floor")
+            {
+                return newX;
+            }
         }
 
         newX += currentSpeed * dir;

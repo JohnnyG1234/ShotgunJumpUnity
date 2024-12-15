@@ -27,7 +27,6 @@ public class groundCheck : MonoBehaviour
         if (collider.gameObject.tag == "floor")
         {
             isGrounded = true;
-            groundY = collider.gameObject.transform.position.y;
         }
     }
 
