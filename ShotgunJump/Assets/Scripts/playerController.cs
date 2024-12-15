@@ -68,17 +68,16 @@ public class playerController : MonoBehaviour
         }
         
         groundDistance = feetHitbox.GetComponent<groundCheck>().GetGroundY();
-
     }
 
     void FixedUpdate()
     {   
+        //move that player yo
         float newY = calcGravity();
         float newX = moveX();
-
-
         gameObject.transform.position = new UnityEngine.Vector2(newX, newY);
 
+        // jumping
         if (shouldJump | jumpStarted > 0)
         {
             Jump();
@@ -142,9 +141,6 @@ public class playerController : MonoBehaviour
         }
 
         newX += currentSpeed * dir;
-
-
-
         return newX;
     }
 
