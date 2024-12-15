@@ -34,7 +34,6 @@ public class playerController : MonoBehaviour
     private float currentSpeed;
     private SpriteRenderer sp;
     private float groundDistance;
-    private float groundOffset = -.5f;
 
 
 
@@ -68,32 +67,13 @@ public class playerController : MonoBehaviour
             groundTime += Time.deltaTime;
         }
         
-        //raycasting to get ground distance
-        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, UnityEngine.Vector2.down);
-        groundDistance = groundHit.distance + groundOffset;
+        groundDistance = feetHitbox.GetComponent<groundCheck>().GetGroundY();
 
     }
 
     void FixedUpdate()
     {   
-        float newY = gameObject.transform.position.y;
-        if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
-        {
-            //gravity
-            newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,2);
-            
-            // but don't go below the ground
-            float groundY = groundDistance + .5f; //feetHitbox.GetComponent<groundCheck>().GetGroundY() + 
-            Debug.Log(groundY);
-            if (groundY > newY)
-            {
-                newY = groundY;
-            }
-        }
-        else
-        {
-            airTime = 0;
-        }
+        float newY = calcGravity();
         float newX = moveX();
 
 
@@ -166,5 +146,29 @@ public class playerController : MonoBehaviour
 
 
         return newX;
+    }
+
+
+    private float calcGravity()
+    {
+        float newY = gameObject.transform.position.y;
+        if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
+        {
+            //gravity
+            newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,2);
+            
+            // but don't go below the ground
+            float groundY = gameObject.transform.position.y - groundDistance - .55f; //feetHitbox.GetComponent<groundCheck>().GetGroundY() + 
+            if (groundY > newY)
+            {
+                newY = groundY;
+            }
+        }
+        else
+        {
+            airTime = 0;
+        }
+
+        return newY;
     }
 }

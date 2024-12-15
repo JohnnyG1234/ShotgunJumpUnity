@@ -7,7 +7,8 @@ using UnityEngine;
 public class groundCheck : MonoBehaviour
 {
     private bool isGrounded = true;
-    private float groundY;
+    private float groundDistance;
+    private UnityEngine.Vector3 groundOffset = new UnityEngine.Vector3(0, -.2f, 0);
 
 
     // Start is called before the first frame update
@@ -19,7 +20,9 @@ public class groundCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //raycasting to get ground distance
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position + groundOffset, UnityEngine.Vector2.down);
+        groundDistance = groundHit.distance;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -42,6 +45,6 @@ public class groundCheck : MonoBehaviour
 
     public float GetGroundY()
     {
-        return groundY;
+        return groundDistance;
     }
 }
