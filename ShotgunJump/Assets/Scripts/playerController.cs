@@ -83,6 +83,7 @@ public class playerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             SHOTGUN();
+            airTime = 0;
         }
         
         groundDistance = feetHitbox.GetComponent<groundCheck>().GetGroundY();
@@ -98,8 +99,8 @@ public class playerController : MonoBehaviour
         if (currentShotgunTime > 0)
         {
             currentShotgunTime -= Time.deltaTime;
-            newX += (shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x ;
-            newY += (shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y ;
+            newX += shotgunX();
+            newY += shotgunY();
         }
         gameObject.transform.position = new UnityEngine.Vector2(newX, newY);
 
@@ -201,5 +202,49 @@ public class playerController : MonoBehaviour
         shotGunDir = new UnityEngine.Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
         shotGunDir = -shotGunDir.normalized;
         currentShotgunTime = shotgunJumpTime;
+    }
+
+    private float shotgunX()
+    {
+
+
+        if (shotGunDir.x > 0)
+        {
+            UnityEngine.Vector3 rightOffsett = new UnityEngine.Vector3(.5f,0,0);
+            RaycastHit2D hitRight = Physics2D.Raycast(transform.position + rightOffsett, UnityEngine.Vector2.right);
+            
+            if (hitRight)
+            {
+                if ((shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x > hitRight.distance)
+                {
+                    currentShotgunTime = 0;
+                    return hitRight.distance;
+                }
+            }
+
+        }
+        else if (shotGunDir.x < 0)
+        {
+            UnityEngine.Vector3 leftOffsett = new UnityEngine.Vector3(-.5f,0,0);
+            RaycastHit2D hitLeft = Physics2D.Raycast(transform.position + leftOffsett, UnityEngine.Vector2.left);
+
+            if (hitLeft)
+            {
+                if (Mathf.Abs((shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x) > hitLeft.distance)
+                {
+                    currentShotgunTime = 0;
+                    return -hitLeft.distance;
+                }
+            }
+        }
+        
+        return (shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x;
+    }
+
+    private float shotgunY()
+    {
+        float newY = (shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y;
+
+        return newY;
     }
 }
