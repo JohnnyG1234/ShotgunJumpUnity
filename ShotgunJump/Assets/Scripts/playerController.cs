@@ -243,8 +243,29 @@ public class playerController : MonoBehaviour
 
     private float shotgunY()
     {
-        float newY = (shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y;
+        if (shotGunDir.y  < 0)
+        {
+                if (Mathf.Abs((shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y) > groundDistance)
+                {
+                    currentShotgunTime = 0;
+                    return -groundDistance;
+                }
+        }
+        else if (shotGunDir.y  > 0)
+        {
+            UnityEngine.Vector3 Offsett = new UnityEngine.Vector3(0,.5f,0);
+            RaycastHit2D hitup = Physics2D.Raycast(transform.position + Offsett, UnityEngine.Vector2.up);
 
-        return newY;
+            if (hitup)
+            {
+                if ((shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y > hitup.distance)
+                {
+                    currentShotgunTime = 0;
+                    return hitup.distance;
+                }
+            }
+        }
+        return (shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y;
+ 
     }
 }
