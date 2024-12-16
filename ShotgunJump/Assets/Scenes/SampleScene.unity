@@ -172,14 +172,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feetHitbox: {fileID: 1615926058}
-  gravity: 0.1
+  gravity: 0.15
   speed: 0.2
-  jumpTime: 0.4
-  jumpNum: 0.6
+  jumpTime: 0.45
+  jumpNum: 0.4
   maxSpeed: 0.6
   behopTimer: 0.3
   behopSpeedInc: 0.04
-  shotgunJumpTime: 0.2
+  shotgunJumpTime: 0.3
   shotgunForce: {x: 1, y: 1}
 --- !u!61 &45573884
 BoxCollider2D:
@@ -971,12 +971,20 @@ PrefabInstance:
       value: Crate1
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.37
+      value: 14.08
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.9422
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalPosition.z

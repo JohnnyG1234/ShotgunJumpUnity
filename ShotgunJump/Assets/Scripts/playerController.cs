@@ -98,8 +98,8 @@ public class playerController : MonoBehaviour
         if (currentShotgunTime > 0)
         {
             currentShotgunTime -= Time.deltaTime;
-            newX += shotgunForce.x  * shotGunDir.x;
-            newY += shotgunForce.y  * shotGunDir.y;
+            newX += (shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x ;
+            newY += (shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y ;
         }
         gameObject.transform.position = new UnityEngine.Vector2(newX, newY);
 
@@ -179,10 +179,10 @@ public class playerController : MonoBehaviour
         if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
         {
             //gravity
-            newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,1);
+            newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime  * .5f,.6f);
             
             // but don't go below the ground
-            float groundY = gameObject.transform.position.y - groundDistance - .55f; //feetHitbox.GetComponent<groundCheck>().GetGroundY() + 
+            float groundY = gameObject.transform.position.y - groundDistance - .2f;
             if (groundY > newY)
             {
                 newY = groundY;
