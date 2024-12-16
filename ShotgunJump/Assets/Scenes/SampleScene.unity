@@ -175,7 +175,7 @@ MonoBehaviour:
   gravity: 0.15
   speed: 0.2
   jumpTime: 0.45
-  jumpNum: 0.4
+  jumpNum: 0.45
   maxSpeed: 0.6
   behopTimer: 0.3
   behopSpeedInc: 0.04
@@ -213,7 +213,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00019735098, y: -0.3285787}
+  m_Offset: {x: -0.008395702, y: -0.30893743}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -224,7 +224,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.85088575, y: 0.63225985}
+  m_Size: {x: 0.67165893, y: 0.5929773}
   m_EdgeRadius: 0
 --- !u!50 &45573885
 Rigidbody2D:
@@ -848,7 +848,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0042040944, y: 0.30783308}
+  m_Offset: {x: -0.00092734396, y: 0.30783308}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -859,7 +859,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6888989, y: 0.07001662}
+  m_Size: {x: 0.44026074, y: 0.07001662}
   m_EdgeRadius: 0
 --- !u!1 &1889415854
 GameObject:
@@ -972,19 +972,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.2
+      value: 2.8828437
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.2
+      value: 1.9596632
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.08
+      value: 14.9215
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.77
+      value: 3.1499
       objectReference: {fileID: 0}
     - target: {fileID: 8255565356995200180, guid: fac2fb1dc932e89488ef190d5656fa21, type: 3}
       propertyPath: m_LocalPosition.z

@@ -47,7 +47,6 @@ public class playerController : MonoBehaviour
     void Start()
     {
         currentSpeed = speed;
-        //sp = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -85,12 +84,11 @@ public class playerController : MonoBehaviour
             SHOTGUN();
             airTime = 0;
         }
-        
-        groundDistance = feetHitbox.GetComponent<groundCheck>().GetGroundY();
     }
 
     void FixedUpdate()
     {   
+        groundDistance = feetHitbox.GetComponent<groundCheck>().GetGroundY();
         //move that player yo
         float newY = calcGravity();
         float newX = moveX();
@@ -120,6 +118,7 @@ public class playerController : MonoBehaviour
         {
             currentSpeed = speed;
         }
+        
     }
 
     private void Jump()
