@@ -23,6 +23,10 @@ public class playerController : MonoBehaviour
     float behopTimer;
     [SerializeField]
     float behopSpeedInc;
+    [SerializeField]
+    float  shotgunJumpTime;
+    [SerializeField]
+    UnityEngine.Vector2 shotgunForce;
     
 
 
@@ -33,6 +37,9 @@ public class playerController : MonoBehaviour
     private float groundTime = 0f;
     private float currentSpeed;
     private float groundDistance;
+    private UnityEngine.Vector3 mousePos;
+    private float currentShotgunTime;
+    UnityEngine.Vector2 shotGunDir;
 
 
 
@@ -47,7 +54,7 @@ public class playerController : MonoBehaviour
     void Update()
     {
         //crosshair stuff
-        UnityEngine.Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         dir = Input.GetAxis("Horizontal");
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
@@ -60,9 +67,22 @@ public class playerController : MonoBehaviour
             groundTime = 0f;
         }
 
+        // update ground time
         if (grounded)
         {
+            airTime = 0;
             groundTime += Time.deltaTime;
+        }
+        else
+        {
+            groundTime = 0;
+            airTime += Time.deltaTime;
+        }
+        
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            SHOTGUN();
         }
         
         groundDistance = feetHitbox.GetComponent<groundCheck>().GetGroundY();
@@ -73,6 +93,14 @@ public class playerController : MonoBehaviour
         //move that player yo
         float newY = calcGravity();
         float newX = moveX();
+
+        // shotgun!!!!
+        if (currentShotgunTime > 0)
+        {
+            currentShotgunTime -= Time.deltaTime;
+            newX += shotgunForce.x  * shotGunDir.x;
+            newY += shotgunForce.y  * shotGunDir.y;
+        }
         gameObject.transform.position = new UnityEngine.Vector2(newX, newY);
 
         // jumping
@@ -83,6 +111,8 @@ public class playerController : MonoBehaviour
             jumpStarted -= Time.deltaTime;
             airTime += Time.deltaTime;
         }
+
+
 
         // reset speed if we don't behop in time
         if  (groundTime > behopTimer)
@@ -149,7 +179,7 @@ public class playerController : MonoBehaviour
         if (!feetHitbox.GetComponent<groundCheck>().GetGroundCheck())
         {
             //gravity
-            newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,2);
+            newY = gameObject.transform.position.y - gravity - Mathf.Min(airTime,1);
             
             // but don't go below the ground
             float groundY = gameObject.transform.position.y - groundDistance - .55f; //feetHitbox.GetComponent<groundCheck>().GetGroundY() + 
@@ -164,5 +194,12 @@ public class playerController : MonoBehaviour
         }
 
         return newY;
+    }
+
+    private void SHOTGUN()
+    {
+        shotGunDir = new UnityEngine.Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+        shotGunDir = -shotGunDir.normalized;
+        currentShotgunTime = shotgunJumpTime;
     }
 }

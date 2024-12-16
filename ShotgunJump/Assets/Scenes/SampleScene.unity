@@ -174,11 +174,13 @@ MonoBehaviour:
   feetHitbox: {fileID: 1615926058}
   gravity: 0.1
   speed: 0.2
-  jumpTime: 0.8
-  jumpNum: 0.5
-  maxSpeed: 1
+  jumpTime: 0.4
+  jumpNum: 0.6
+  maxSpeed: 0.6
   behopTimer: 0.3
   behopSpeedInc: 0.04
+  shotgunJumpTime: 0.2
+  shotgunForce: {x: 1, y: 1}
 --- !u!61 &45573884
 BoxCollider2D:
   m_ObjectHideFlags: 0
