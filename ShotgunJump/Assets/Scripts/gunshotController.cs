@@ -14,7 +14,5 @@ public class gunshotController : MonoBehaviour
         {
             GameObject.Destroy(gameObject);
         }
-
-        transform.position =  gameObject.GetComponentInParent<Transform>().position;
     }
 }

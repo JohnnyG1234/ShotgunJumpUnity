@@ -21,4 +21,9 @@ public class headFollow : MonoBehaviour
         transform.right = dir;
         sp.flipY = mousePos.x < transform.position.x;
     }
+
+    public Vector2 GetRight()
+    {
+        return transform.right;
+    }
 }
