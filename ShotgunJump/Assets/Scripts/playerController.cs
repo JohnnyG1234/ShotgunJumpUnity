@@ -29,6 +29,8 @@ public class playerController : MonoBehaviour
     UnityEngine.Vector2 shotgunForce;
     [SerializeField]
     private float shotGunMult;
+    [SerializeField]
+    private gunshotAnimController gunanim;
     
 
 
@@ -93,6 +95,7 @@ public class playerController : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
+            gunanim.PlayGunAnim();
             SHOTGUN();
             airTime = 0;
         }
