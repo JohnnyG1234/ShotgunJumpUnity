@@ -27,6 +27,8 @@ public class playerController : MonoBehaviour
     float  shotgunJumpTime;
     [SerializeField]
     UnityEngine.Vector2 shotgunForce;
+    [SerializeField]
+    private float shotGunMult;
     
 
 
@@ -55,7 +57,7 @@ public class playerController : MonoBehaviour
         //crosshair stuff
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        dir = Input.GetAxis("Horizontal");
+        dir = Input.GetAxisRaw("Horizontal");
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
 
         if (Input.GetButtonDown("Jump") & grounded | Input.GetAxis("Mouse ScrollWheel") < 0f & grounded)
@@ -155,13 +157,62 @@ public class playerController : MonoBehaviour
     private float moveX()
     {
         float newX = gameObject.transform.position.x;
-
+        //checking middle
         UnityEngine.Vector3 rightOffsett = new UnityEngine.Vector3(.5f,0,0);
         UnityEngine.Vector3 leftOffsett = new UnityEngine.Vector3(-.5f,0,0);
 
 
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position + rightOffsett, UnityEngine.Vector2.right);
         RaycastHit2D hitLeft = Physics2D.Raycast(transform.position + leftOffsett, UnityEngine.Vector2.left);
+
+        if (hitRight)
+        {   
+            if (hitRight.distance < .05 & dir > 0 & hitRight.collider.gameObject.tag == "floor")
+            {
+                return newX;
+            }
+        }
+        
+        if (hitLeft)
+        {
+            if (hitLeft.distance < .05 & dir < 0 & hitLeft.collider.gameObject.tag == "floor")
+            {
+                return newX;
+            }
+        }
+
+
+        // checking high
+        rightOffsett = new UnityEngine.Vector3(.5f , .5f,0);
+        leftOffsett = new UnityEngine.Vector3(-.5f , .5f,0);
+
+
+        hitRight = Physics2D.Raycast(transform.position + rightOffsett, UnityEngine.Vector2.right);
+        hitLeft = Physics2D.Raycast(transform.position + leftOffsett, UnityEngine.Vector2.left);
+
+        if (hitRight)
+        {   
+            if (hitRight.distance < .05 & dir > 0 & hitRight.collider.gameObject.tag == "floor")
+            {
+                return newX;
+            }
+        }
+        
+        if (hitLeft)
+        {
+            if (hitLeft.distance < .05 & dir < 0 & hitLeft.collider.gameObject.tag == "floor")
+            {
+                return newX;
+            }
+        }
+
+        //checking low
+        rightOffsett = new UnityEngine.Vector3(.5f, -.5f,0);
+        leftOffsett = new UnityEngine.Vector3(-.5f, -.5f,0);
+
+
+        hitRight = Physics2D.Raycast(transform.position + rightOffsett, UnityEngine.Vector2.right);
+        hitLeft = Physics2D.Raycast(transform.position + leftOffsett, UnityEngine.Vector2.left);
 
         if (hitRight)
         {   
@@ -225,7 +276,7 @@ public class playerController : MonoBehaviour
             
             if (hitRight)
             {
-                if ((shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x > hitRight.distance)
+                if ((shotgunForce.x - currentShotgunTime * shotGunMult)  * shotGunDir.x > hitRight.distance)
                 {
                     currentShotgunTime = 0;
                     return hitRight.distance;
@@ -240,7 +291,7 @@ public class playerController : MonoBehaviour
 
             if (hitLeft)
             {
-                if (Mathf.Abs((shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x) > hitLeft.distance)
+                if (Mathf.Abs((shotgunForce.x - currentShotgunTime * shotGunMult)  * shotGunDir.x) > hitLeft.distance)
                 {
                     currentShotgunTime = 0;
                     return -hitLeft.distance;
@@ -248,14 +299,14 @@ public class playerController : MonoBehaviour
             }
         }
         
-        return (shotgunForce.x - currentShotgunTime * 1.2f)  * shotGunDir.x;
+        return (shotgunForce.x - currentShotgunTime * shotGunMult)  * shotGunDir.x;
     }
 
     private float shotgunY()
     {
         if (shotGunDir.y  < 0)
         {
-                if (Mathf.Abs((shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y) > groundDistance)
+                if (Mathf.Abs((shotgunForce.y - currentShotgunTime * shotGunMult)  * shotGunDir.y) > groundDistance)
                 {
                     currentShotgunTime = 0;
                     return -groundDistance;
@@ -268,14 +319,14 @@ public class playerController : MonoBehaviour
 
             if (hitup)
             {
-                if ((shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y > hitup.distance)
+                if ((shotgunForce.y - currentShotgunTime * shotGunMult)  * shotGunDir.y > hitup.distance)
                 {
                     currentShotgunTime = 0;
                     return hitup.distance;
                 }
             }
         }
-        return (shotgunForce.y - currentShotgunTime * 1.2f)  * shotGunDir.y;
+        return (shotgunForce.y - currentShotgunTime * shotGunMult)  * shotGunDir.y;
  
     }
 }
