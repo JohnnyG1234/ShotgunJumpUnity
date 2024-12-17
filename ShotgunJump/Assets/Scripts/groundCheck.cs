@@ -8,7 +8,6 @@ public class groundCheck : MonoBehaviour
 {
     private bool isGrounded = true;
     private float groundDistance;
-    private UnityEngine.Vector3 groundOffset = new UnityEngine.Vector3(0, -.2f, 0);
 
 
     // Start is called before the first frame update
@@ -16,24 +15,20 @@ public class groundCheck : MonoBehaviour
     {
     }
 
-    void FixedUpdate()
+    void Update()
     {
         //raycasting to get ground distance
-        RaycastHit2D groundHit = Physics2D.Raycast(transform.position + groundOffset, UnityEngine.Vector2.down);
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, UnityEngine.Vector2.down);
         groundDistance = groundHit.distance;
-    }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.gameObject.tag == "floor")
+        if (groundDistance <= 0)
         {
             isGrounded = true;
         }
-    }
-
-    void OnTriggerExit2D()
-    {
-        isGrounded  = false;
+        else
+        {
+            isGrounded = false;
+        }
+        //Debug.Log(isGrounded);
     }
 
     public bool GetGroundCheck()
@@ -41,9 +36,10 @@ public class groundCheck : MonoBehaviour
         return isGrounded;
     }
 
+
     public float GetGroundY()
     {
-        RaycastHit2D groundHit = Physics2D.Raycast(transform.position + groundOffset, UnityEngine.Vector2.down);
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, UnityEngine.Vector2.down);
         groundDistance = groundHit.distance;
         return groundDistance;
     }
