@@ -42,6 +42,7 @@ public class playerController : MonoBehaviour
     private UnityEngine.Vector3 mousePos;
     private float currentShotgunTime;
     UnityEngine.Vector2 shotGunDir;
+    private float lastDir;
 
 
 
@@ -54,17 +55,25 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //crosshair stuff
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         dir = Input.GetAxisRaw("Horizontal");
+
+
+        // check if we are moving in the same direction as last frame, if not reset speed
+        if (dir != lastDir)
+        {
+            currentSpeed = speed;
+        }
+
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
 
         if (Input.GetButtonDown("Jump") & grounded | Input.GetAxis("Mouse ScrollWheel") < 0f & grounded)
         {
             shouldJump = true;
             jumpStarted = jumpTime;
-            behop();
+            behop(); 
             groundTime = 0f;
         }
 
@@ -78,6 +87,8 @@ public class playerController : MonoBehaviour
             groundTime = 0;
             airTime += Time.deltaTime;
         }
+
+        //Debug.Log(currentSpeed);
         
 
         if (Input.GetButtonDown("Fire1"))
@@ -85,6 +96,8 @@ public class playerController : MonoBehaviour
             SHOTGUN();
             airTime = 0;
         }
+
+        lastDir = dir;
     }
 
     void FixedUpdate()
@@ -113,13 +126,11 @@ public class playerController : MonoBehaviour
         }
 
 
-
         // reset speed if we don't behop in time
         if  (groundTime > behopTimer)
         {
             currentSpeed = speed;
         }
-        
     }
 
     private void Jump()
@@ -143,7 +154,7 @@ public class playerController : MonoBehaviour
     private void behop()
     {
         // if we jump in time increase speed up to max 
-        if  (groundTime < behopTimer)
+        if  (groundTime < behopTimer & dir != 0)
         {
             currentSpeed += behopSpeedInc;
 
@@ -152,10 +163,15 @@ public class playerController : MonoBehaviour
                 currentSpeed = maxSpeed;
             }
         }
+        else
+        {
+            currentSpeed  = speed;
+        }
     }
 
     private float moveX()
     {
+        
         float newX = gameObject.transform.position.x;
         //checking middle
         UnityEngine.Vector3 rightOffsett = new UnityEngine.Vector3(.5f,0,0);
@@ -229,7 +245,7 @@ public class playerController : MonoBehaviour
                 return newX;
             }
         }
-
+        
         newX += currentSpeed * dir;
         return newX;
     }
