@@ -25,7 +25,7 @@ public class groundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "floor" & groundDistance  < .05)
+        if (collider.gameObject.tag == "floor")
         {
             isGrounded = true;
         }
