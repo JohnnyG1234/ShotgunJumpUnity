@@ -69,7 +69,6 @@ public class playerController : MonoBehaviour
         // update ground time
         if (grounded)
         {
-            airTime = 0;
             groundTime += Time.deltaTime;
         }
         else
@@ -124,6 +123,18 @@ public class playerController : MonoBehaviour
     private void Jump()
     {
         float newY = gameObject.transform.position.y + jumpNum;
+        UnityEngine.Vector3 Offsett = new UnityEngine.Vector3(0,.7f,0);
+        RaycastHit2D hitup = Physics2D.Raycast(transform.position + Offsett, UnityEngine.Vector2.up);
+
+        if (hitup)
+        {
+            if (jumpNum > hitup.distance &  hitup.transform.gameObject.tag != "Player")
+            {
+                jumpStarted = 0;
+                newY = gameObject.transform.position.y + hitup.distance;
+            }
+            }
+            
         gameObject.transform.position = new UnityEngine.Vector2(gameObject.transform.position.x, newY);
     }
 
