@@ -181,7 +181,7 @@ MonoBehaviour:
   behopTimer: 0.3
   behopSpeedInc: 0.04
   shotgunJumpTime: 0.3
-  shotgunForce: {x: 1, y: 1}
+  shotgunForce: {x: 0.9, y: 0.9}
   shotGunMult: 1.6
   gunanim: {fileID: 1502561641}
 --- !u!61 &45573884
