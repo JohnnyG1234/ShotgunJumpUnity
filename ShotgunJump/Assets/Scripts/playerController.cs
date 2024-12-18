@@ -82,6 +82,10 @@ public class playerController : MonoBehaviour
         // update ground time
         if (grounded)
         {
+            if (jumpStarted < jumpTime/2)
+            {
+                jumpStarted = 0;
+            }
             groundTime += Time.deltaTime;
         }
         else
@@ -144,12 +148,12 @@ public class playerController : MonoBehaviour
 
         if (hitup)
         {
-            if (jumpNum > hitup.distance &  hitup.transform.gameObject.tag != "Player")
+            if (jumpNum > hitup.distance & hitup.transform.gameObject.tag != "Player")
             {
                 jumpStarted = 0;
                 newY = gameObject.transform.position.y + hitup.distance;
             }
-            }
+        }
             
         gameObject.transform.position = new UnityEngine.Vector2(gameObject.transform.position.x, newY);
     }
@@ -264,7 +268,7 @@ public class playerController : MonoBehaviour
             
             // but don't go below the ground
             float groundY = gameObject.transform.position.y - groundDistance - .2f;
-            if (groundY > newY)
+            if (groundY > newY  & jumpStarted <= 0)
             {
                 newY = groundY;
             }
