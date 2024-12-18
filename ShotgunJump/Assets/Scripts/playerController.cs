@@ -61,7 +61,7 @@ public class playerController : MonoBehaviour
         
         //crosshair stuff
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        dir = Input.GetAxisRaw("Horizontal");
+        dir = Input.GetAxis("Horizontal");
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -69,13 +69,13 @@ public class playerController : MonoBehaviour
         }
 
 
-        // check if we are moving in the same direction as last frame, if not reset speed
-        if (dir != lastDir)
-        {
-            currentSpeed = speed;
-        }
-
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
+
+        // check if we are moving in the same direction as last frame, if not reset speed
+        //if (dir != lastDir & grounded)
+        //{
+        //    currentSpeed = speed;
+        //}
 
         if (Input.GetButtonDown("Jump") & grounded | Input.GetAxis("Mouse ScrollWheel") < 0f & grounded)
         {
