@@ -32,6 +32,8 @@ public class playerController : MonoBehaviour
     private float shotGunMult;
     [SerializeField]
     private gunshotAnimController gunanim;
+    [SerializeField]
+    private Animator headAnimator;
     
 
 
@@ -62,6 +64,15 @@ public class playerController : MonoBehaviour
         //crosshair stuff
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dir = Input.GetAxis("Horizontal");
+
+        if (Mathf.Abs(dir) > 0)
+        {
+            headAnimator.SetBool("walking", true);
+        }
+        else
+        {
+            headAnimator.SetBool("walking", false);
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
