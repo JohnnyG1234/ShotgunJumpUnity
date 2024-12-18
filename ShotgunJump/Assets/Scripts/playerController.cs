@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -61,6 +62,11 @@ public class playerController : MonoBehaviour
         //crosshair stuff
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         dir = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
 
 
         // check if we are moving in the same direction as last frame, if not reset speed
