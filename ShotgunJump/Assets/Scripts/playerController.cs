@@ -110,6 +110,9 @@ public class playerController : MonoBehaviour
     void FixedUpdate()
     {   
         groundDistance = feetHitbox.GetComponent<groundCheck>().GetGroundY();
+        //Debug.Log(groundDistance);
+
+
         //move that player yo
         float newY = calcGravity();
         float newX = moveX();
