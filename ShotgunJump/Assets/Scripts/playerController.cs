@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Microsoft.Unity.VisualStudio.Editor;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
@@ -34,6 +35,10 @@ public class playerController : MonoBehaviour
     private gunshotAnimController gunanim;
     [SerializeField]
     private Animator headAnimator;
+    [SerializeField]
+    private GameObject[] bullets;
+    [SerializeField]
+    private float reloadTime;
     
 
 
@@ -46,8 +51,11 @@ public class playerController : MonoBehaviour
     private float groundDistance;
     private UnityEngine.Vector3 mousePos;
     private float currentShotgunTime;
-    UnityEngine.Vector2 shotGunDir;
-    private float lastDir;
+    private UnityEngine.Vector2 shotGunDir;
+    private int numBullets = 1;
+    private  float currentReloadTime = 0;
+    private bool reloading = false;
+
 
 
 
@@ -74,7 +82,7 @@ public class playerController : MonoBehaviour
             headAnimator.SetBool("walking", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
@@ -82,11 +90,6 @@ public class playerController : MonoBehaviour
 
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
 
-        // check if we are moving in the same direction as last frame, if not reset speed
-        //if (dir != lastDir & grounded)
-        //{
-        //    currentSpeed = speed;
-        //}
 
         if (Input.GetButtonDown("Jump") & grounded | Input.GetAxis("Mouse ScrollWheel") < 0f & grounded)
         {
@@ -111,17 +114,22 @@ public class playerController : MonoBehaviour
             airTime += Time.deltaTime;
         }
 
-        //Debug.Log(currentSpeed);
-        
+        //reloading stuff
+        UpdateReload();
+
 
         if (Input.GetButtonDown("Fire1"))
         {
-            gunanim.PlayGunAnim();
-            SHOTGUN();
-            airTime = 0;
+            if (numBullets >= 0)
+            {
+                gunanim.PlayGunAnim();
+                SHOTGUN();
+                airTime = 0;
+                bullets[numBullets].SetActive(false);
+                numBullets -= 1;
+            }
+            
         }
-
-        lastDir = dir;
     }
 
     void FixedUpdate()
@@ -371,5 +379,32 @@ public class playerController : MonoBehaviour
         }
         return (shotgunForce.y - currentShotgunTime * shotGunMult)  * shotGunDir.y;
  
+    }
+
+    private void Reload()
+    {
+        currentReloadTime = reloadTime;
+        reloading = true;
+    }
+
+    private void UpdateReload()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
+        if (reloading)
+        {
+            currentReloadTime -= Time.deltaTime;
+            if (currentReloadTime <= 0)
+            {
+                foreach (GameObject bullet in bullets)
+                {
+                    bullet.SetActive(true);
+                    numBullets = 1;
+                    reloading = false;
+                }
+            }
+        }
     }
 }
