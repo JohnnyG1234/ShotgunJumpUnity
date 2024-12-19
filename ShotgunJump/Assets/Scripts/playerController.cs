@@ -407,4 +407,9 @@ public class playerController : MonoBehaviour
             }
         }
     }
+
+    public bool GetReload()
+    {
+        return reloading;
+    }
 }
