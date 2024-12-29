@@ -12,4 +12,12 @@ public class tutorialonecontroller : MonoBehaviour
             tutorialOne.SetActive(true);
         }
     }
+
+    void OnTriggerExit2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "Player")
+        {
+            tutorialOne.SetActive(false);
+        }
+    }
 }
