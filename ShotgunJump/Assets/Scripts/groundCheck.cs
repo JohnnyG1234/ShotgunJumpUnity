@@ -21,7 +21,7 @@ public class groundCheck : MonoBehaviour
         RaycastHit2D groundHit = Physics2D.Raycast(transform.position, UnityEngine.Vector2.down);
         groundDistance = groundHit.distance;
 
-        if (groundDistance <= 0 & groundHit)
+        if (groundDistance <= 0 & groundHit & groundHit.collider.gameObject.tag == "floor")
         {
             isGrounded = true;
         }
@@ -41,7 +41,7 @@ public class groundCheck : MonoBehaviour
     public float GetGroundY()
     {
         RaycastHit2D groundHit = Physics2D.Raycast(transform.position, UnityEngine.Vector2.down);
-        if (groundHit)
+        if (groundHit & groundHit.collider.gameObject.tag == "floor")
         {
             groundDistance = groundHit.distance;
             return groundDistance;

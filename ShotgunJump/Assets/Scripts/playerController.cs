@@ -176,7 +176,7 @@ public class playerController : MonoBehaviour
 
         if (hitup)
         {
-            if (jumpNum > hitup.distance & hitup.transform.gameObject.tag != "Player")
+            if (jumpNum > hitup.distance & hitup.transform.gameObject.tag == "floor")
             {
                 jumpStarted = 0;
                 newY = gameObject.transform.position.y + hitup.distance;
@@ -327,7 +327,7 @@ public class playerController : MonoBehaviour
             
             if (hitRight)
             {
-                if ((shotgunForce.x - currentShotgunTime * shotGunMult)  * shotGunDir.x > hitRight.distance)
+                if ((shotgunForce.x - currentShotgunTime * shotGunMult)  * shotGunDir.x > hitRight.distance & hitRight.transform.gameObject.tag == "floor")
                 {
                     currentShotgunTime = 0;
                     return hitRight.distance;
@@ -342,7 +342,7 @@ public class playerController : MonoBehaviour
 
             if (hitLeft)
             {
-                if (Mathf.Abs((shotgunForce.x - currentShotgunTime * shotGunMult)  * shotGunDir.x) > hitLeft.distance)
+                if (Mathf.Abs((shotgunForce.x - currentShotgunTime * shotGunMult)  * shotGunDir.x) > hitLeft.distance & hitLeft.transform.gameObject.tag == "floor")
                 {
                     currentShotgunTime = 0;
                     return -hitLeft.distance;
@@ -368,7 +368,7 @@ public class playerController : MonoBehaviour
             UnityEngine.Vector3 Offsett = new UnityEngine.Vector3(0,.5f,0);
             RaycastHit2D hitup = Physics2D.Raycast(transform.position + Offsett, UnityEngine.Vector2.up);
 
-            if (hitup)
+            if (hitup & hitup.transform.gameObject.tag == "floor")
             {
                 if ((shotgunForce.y - currentShotgunTime * shotGunMult)  * shotGunDir.y > hitup.distance)
                 {

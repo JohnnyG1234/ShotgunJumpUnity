@@ -9,7 +9,6 @@ public class tutorialonecontroller : MonoBehaviour
     {
         if(col.gameObject.tag == "Player")
         {
-            Debug.Log("das");
             tutorialOne.SetActive(true);
         }
     }

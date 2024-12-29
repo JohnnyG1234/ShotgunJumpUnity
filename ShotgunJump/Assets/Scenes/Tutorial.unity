@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 45860074}
   m_Layer: 0
   m_Name: floorTile (1)
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -711,7 +711,7 @@ GameObject:
   - component: {fileID: 261943461}
   m_Layer: 0
   m_Name: floorTile (2)
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1170,7 +1170,7 @@ GameObject:
   - component: {fileID: 392967216}
   m_Layer: 0
   m_Name: floorTile (4)
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1792,7 +1792,7 @@ GameObject:
   - component: {fileID: 689386910}
   m_Layer: 0
   m_Name: floorTile
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2371,7 +2371,7 @@ GameObject:
   - component: {fileID: 846124574}
   m_Layer: 0
   m_Name: hazardStripe (1)
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3590,7 +3590,7 @@ GameObject:
   - component: {fileID: 1268217461}
   m_Layer: 0
   m_Name: crates
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3779,7 +3779,7 @@ GameObject:
   - component: {fileID: 1300414919}
   m_Layer: 0
   m_Name: floorTile (5)
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5668,7 +5668,7 @@ GameObject:
   - component: {fileID: 2113895330}
   m_Layer: 0
   m_Name: hazardStripe
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5826,7 +5826,7 @@ GameObject:
   - component: {fileID: 2114414673}
   m_Layer: 0
   m_Name: floorTile (6)
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6073,7 +6073,7 @@ GameObject:
   - component: {fileID: 2135894704}
   m_Layer: 0
   m_Name: floorTile (3)
-  m_TagString: Untagged
+  m_TagString: floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
