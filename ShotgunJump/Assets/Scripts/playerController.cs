@@ -40,6 +40,8 @@ public class playerController : MonoBehaviour
     [SerializeField]
     private float reloadTime;
     
+    [SerializeField] private GameManager gameManger;
+    
 
 
     private float dir;
@@ -411,5 +413,15 @@ public class playerController : MonoBehaviour
     public bool GetReload()
     {
         return reloading;
+    }
+
+    public void Die()
+    {
+        gameManger.GameOver();
+        SpriteRenderer[] All = GetComponentsInChildren<SpriteRenderer>();
+        foreach( var sr in All)
+        {
+            sr.enabled = false;
+        }
     }
 }
