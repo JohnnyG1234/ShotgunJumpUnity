@@ -73,7 +73,7 @@ public class playerController : MonoBehaviour
         
         //crosshair stuff
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        dir = Input.GetAxis("Horizontal");
+        dir = Input.GetAxisRaw("Horizontal");
 
         if (Mathf.Abs(dir) > 0)
         {
@@ -84,16 +84,10 @@ public class playerController : MonoBehaviour
             headAnimator.SetBool("walking", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        }
-
-
         bool grounded = feetHitbox.GetComponent<groundCheck>().GetGroundCheck();
 
 
-        if (Input.GetButtonDown("Jump") & grounded | Input.GetAxis("Mouse ScrollWheel") < 0f & grounded)
+        if (Input.GetButtonDown("Jump") & (grounded|airTime < .02) | Input.GetAxis("Mouse ScrollWheel") < 0f & (grounded|airTime < .02))
         {
             shouldJump = true;
             jumpStarted = jumpTime;
@@ -423,5 +417,6 @@ public class playerController : MonoBehaviour
         {
             sr.enabled = false;
         }
+        gameObject.GetComponent<playerController>().enabled = false;
     }
 }
