@@ -20,6 +20,10 @@ public class enemyPatrol : MonoBehaviour
 
     void FixedUpdate()
     {
+        //for some reason the z rotation  was getting changed (no idea why) so that's why this is here *shrugs*
+        transform.rotation = quaternion.identity;
+
+
         if (MathF.Abs(transform.position.x - currentTarget.position.x) < .5f)
         {
             if (currentTarget == pointA)
@@ -35,12 +39,12 @@ public class enemyPatrol : MonoBehaviour
         if (transform.position.x < currentTarget.position.x)
         {
             GetComponentInChildren<SpriteRenderer>().flipX = true;
-            transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.y);
+            transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
         }
         else
         {
             GetComponentInChildren<SpriteRenderer>().flipX = false;
-            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.y);
+            transform.position = new Vector3(transform.position.x - speed, transform.position.y, transform.position.z);
         }
     }
 }
